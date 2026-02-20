@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rocel — Tests</title>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --surface: #1e2230;
+      --border: rgba(255,255,255,0.08);
+      --text: #e8e9ef;
+      --text-2: #9da3b5;
+      --pass: #5ddc9b;
+      --fail: #f26b6b;
+      --accent: #e8c87a;
+      --font: 'DM Sans', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      padding: 40px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    header { margin-bottom: 40px; }
+    header h1 { font-size: 2rem; color: var(--accent); margin-bottom: 8px; }
+    header p { color: var(--text-2); }
+
+    .test-suite {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .suite-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .suite-header h2 {
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .suite-count {
+      font-size: 0.8rem;
+      color: var(--text-2);
+    }
+
+    .test-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+
+    .test-row:last-child { border-bottom: none; }
+
+    .test-icon { font-size: 1rem; }
+    .test-icon.pass { color: var(--pass); }
+    .test-icon.fail { color: var(--fail); }
+
+    .test-name { color: var(--text); }
+    .test-result { font-size: 0.75rem; color: var(--text-2); text-align: right; }
+    .test-result.fail { color: var(--fail); }
+
+    .summary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .summary-num {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .summary-num.pass { color: var(--pass); }
+    .summary-num.fail { color: var(--fail); }
+    .summary-label { font-size: 0.75rem; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-link">← Back to Rocel</a>
+  <header>
+    <h1>Rocel Test Suite</h1>
+    <p>Validation logic tests for regex rules and utility functions</p>
+  </header>
+
+  <div id="testOutput"></div>
+  <div class="summary" id="summary">Running tests…</div>
+
+  <script type="module">
+    // ─── Mini Test Framework ──────────────────────────────────────────
+    const results = [];
+
+    function test(name, fn) {
+      try {
+        const result = fn();
+        results.push({ name, pass: result.pass, msg: result.msg });
+      } catch (e) {
+        results.push({ name, pass: false, msg: `Threw: ${e.message}` });
+      }
+    }
+
+    function expect(actual, expected, msg) {
+      const pass = actual === expected;
+      return { pass, msg: pass ? '✓' : `Expected "${expected}", got "${actual}"` };
+    }
+
+    function expectTruthy(val, msg) {
+      return { pass: !!val, msg: val ? '✓' : (msg || `Expected truthy, got ${val}`) };
+    }
+
+    function expectFalsy(val, msg) {
+      return { pass: !val, msg: !val ? '✓' : (msg || `Expected falsy, got ${val}`) };
+    }
+
+    // ─── Import validators ────────────────────────────────────────────
+    const {
+      validateDescription, validateAmount, validateDate, validateCategory,
+      validateRate, validateBudgetCap, checkDuplicateWords, compileRegex, highlightMatches
+    } = await import('./scripts/validators.js');
+
+    // ─── SUITE 1: Description Validation ─────────────────────────────
+    const suite1 = [];
+
+    suite1.push({ name: 'Valid description', fn: () => expect(validateDescription('Coffee with friends'), '') });
+    suite1.push({ name: 'Empty description → error', fn: () => expectTruthy(validateDescription('')) });
+    suite1.push({ name: 'Leading space → error', fn: () => expectTruthy(validateDescription(' leading space')) });
+    suite1.push({ name: 'Trailing space → error', fn: () => expectTruthy(validateDescription('trailing space ')) });
+    suite1.push({ name: 'Single char description → valid', fn: () => expect(validateDescription('A'), '') });
+    suite1.push({ name: 'Long description (201 chars) → error', fn: () => expectTruthy(validateDescription('A'.repeat(201))) });
+    suite1.push({ name: 'Description with numbers → valid', fn: () => expect(validateDescription('Bus pass 2025'), '') });
+
+    // ─── SUITE 2: Amount Validation ───────────────────────────────────
+    const suite2 = [];
+
+    suite2.push({ name: 'Valid integer amount', fn: () => expect(validateAmount('45'), '') });
+    suite2.push({ name: 'Valid decimal amount', fn: () => expect(validateAmount('12.50'), '') });
+    suite2.push({ name: 'Valid zero', fn: () => expect(validateAmount('0.01'), '') });
+    suite2.push({ name: 'Empty amount → error', fn: () => expectTruthy(validateAmount('')) });
+    suite2.push({ name: 'Negative → error (regex)', fn: () => expectTruthy(validateAmount('-5')) });
+    suite2.push({ name: 'Three decimal places → error', fn: () => expectTruthy(validateAmount('12.500')) });
+    suite2.push({ name: 'Alpha chars → error', fn: () => expectTruthy(validateAmount('abc')) });
+    suite2.push({ name: 'Zero amount → error', fn: () => expectTruthy(validateAmount('0')) });
+    suite2.push({ name: 'Over $1M → error', fn: () => expectTruthy(validateAmount('1000001')) });
+    suite2.push({ name: '0.99 → valid', fn: () => expect(validateAmount('0.99'), '') });
+
+    // ─── SUITE 3: Date Validation ─────────────────────────────────────
+    const suite3 = [];
+
+    suite3.push({ name: 'Valid date (2025-09-29)', fn: () => expect(validateDate('2025-09-29'), '') });
+    suite3.push({ name: 'Invalid month 13', fn: () => expectTruthy(validateDate('2025-13-01')) });
+    suite3.push({ name: 'Invalid day 00', fn: () => expectTruthy(validateDate('2025-01-00')) });
+    suite3.push({ name: 'Invalid day 32', fn: () => expectTruthy(validateDate('2025-01-32')) });
+    suite3.push({ name: 'Wrong format (MM/DD/YYYY)', fn: () => expectTruthy(validateDate('09/29/2025')) });
+    suite3.push({ name: 'Empty date → error', fn: () => expectTruthy(validateDate('')) });
+    suite3.push({ name: 'Edge date (2025-12-31)', fn: () => expect(validateDate('2025-12-31'), '') });
+    suite3.push({ name: 'Edge date (2025-01-01)', fn: () => expect(validateDate('2025-01-01'), '') });
+
+    // ─── SUITE 4: Category Validation ────────────────────────────────
+    const suite4 = [];
+
+    suite4.push({ name: 'Valid single word', fn: () => expect(validateCategory('Food'), '') });
+    suite4.push({ name: 'Valid hyphenated', fn: () => expect(validateCategory('Part-time'), '') });
+    suite4.push({ name: 'Valid multi-word', fn: () => expect(validateCategory('Personal Care'), '') });
+    suite4.push({ name: 'Empty → error', fn: () => expectTruthy(validateCategory('')) });
+    suite4.push({ name: 'Numbers in category → error', fn: () => expectTruthy(validateCategory('Category1')) });
+    suite4.push({ name: 'Special chars → error', fn: () => expectTruthy(validateCategory('Food@Home')) });
+    suite4.push({ name: 'Leading hyphen → error', fn: () => expectTruthy(validateCategory('-Invalid')) });
+
+    // ─── SUITE 5: Advanced Regex (Duplicate Word) ─────────────────────
+    const suite5 = [];
+
+    suite5.push({ name: 'Duplicate word detected (the the)', fn: () => expectTruthy(checkDuplicateWords('the the coffee shop')) });
+    suite5.push({ name: 'Duplicate word (case-insensitive: The the)', fn: () => expectTruthy(checkDuplicateWords('The the coffee')) });
+    suite5.push({ name: 'No duplicate → empty string', fn: () => expect(checkDuplicateWords('Coffee with friends'), '') });
+    suite5.push({ name: 'Repeated word later (eat eat again)', fn: () => expectTruthy(checkDuplicateWords('I eat eat often')) });
+    suite5.push({ name: 'Similar but not duplicate (it its)', fn: () => expect(checkDuplicateWords('it its value'), '') });
+
+    // ─── SUITE 6: Safe Regex Compiler ────────────────────────────────
+    const suite6 = [];
+
+    suite6.push({ name: 'Valid pattern compiles', fn: () => expectTruthy(compileRegex('coffee')) });
+    suite6.push({ name: 'Invalid pattern returns null', fn: () => expectFalsy(compileRegex('[invalid')) });
+    suite6.push({ name: 'Empty pattern returns null', fn: () => expectFalsy(compileRegex('')) });
+    suite6.push({ name: 'Regex matches correctly', fn: () => {
+      const re = compileRegex('coffee', 'i');
+      return expectTruthy(re && re.test('Coffee with friends'));
+    }});
+    suite6.push({ name: 'Lookahead pattern works', fn: () => {
+      const re = compileRegex('\\d+(?=\\.\\d{2})');
+      return expectTruthy(re && re.test('12.50'));
+    }});
+    suite6.push({ name: 'Back-reference pattern works', fn: () => {
+      const re = compileRegex('\\b(\\w+)\\s+\\1\\b', 'i');
+      return expectTruthy(re && re.test('the the'));
+    }});
+
+    // ─── SUITE 7: Budget / Rate Validation ───────────────────────────
+    const suite7 = [];
+
+    suite7.push({ name: 'Valid budget cap', fn: () => expect(validateBudgetCap('500.00'), '') });
+    suite7.push({ name: 'Empty cap → valid (optional)', fn: () => expect(validateBudgetCap(''), '') });
+    suite7.push({ name: 'Zero cap → error', fn: () => expectTruthy(validateBudgetCap('0')) });
+    suite7.push({ name: 'Valid rate', fn: () => expect(validateRate('0.92'), '') });
+    suite7.push({ name: 'Valid rate integer', fn: () => expect(validateRate('1'), '') });
+    suite7.push({ name: 'Zero rate → error', fn: () => expectTruthy(validateRate('0')) });
+    suite7.push({ name: 'Negative rate → error', fn: () => expectTruthy(validateRate('-0.5')) });
+    suite7.push({ name: 'Text rate → error', fn: () => expectTruthy(validateRate('abc')) });
+
+    // ─── Render Results ───────────────────────────────────────────────
+    const suites = [
+      { name: 'Description Validation', tests: suite1 },
+      { name: 'Amount Validation', tests: suite2 },
+      { name: 'Date Validation', tests: suite3 },
+      { name: 'Category Validation', tests: suite4 },
+      { name: 'Advanced Regex — Duplicate Word (Back-reference)', tests: suite5 },
+      { name: 'Safe Regex Compiler', tests: suite6 },
+      { name: 'Budget Cap & Rate Validation', tests: suite7 },
+    ];
+
+    let totalPass = 0;
+    let totalFail = 0;
+
+    const output = document.getElementById('testOutput');
+
+    for (const suite of suites) {
+      let suitePass = 0;
+      let suiteFail = 0;
+      const rows = [];
+
+      for (const t of suite.tests) {
+        let result;
+        try {
+          result = t.fn();
+        } catch (e) {
+          result = { pass: false, msg: `Threw: ${e.message}` };
+        }
+
+        const pass = result?.pass ?? false;
+        if (pass) { suitePass++; totalPass++; } else { suiteFail++; totalFail++; }
+
+        rows.push(`
+          <div class="test-row">
+            <span class="test-icon ${pass ? 'pass' : 'fail'}">${pass ? '✓' : '✗'}</span>
+            <span class="test-name">${t.name}</span>
+            <span class="test-result ${pass ? '' : 'fail'}">${result?.msg || ''}</span>
+          </div>
+        `);
+      }
+
+      output.innerHTML += `
+        <div class="test-suite">
+          <div class="suite-header">
+            <h2>${suite.name}</h2>
+            <span class="suite-count">${suitePass}/${suitePass + suiteFail} passed</span>
+          </div>
+          ${rows.join('')}
+        </div>
+      `;
+    }
+
+    // Summary
+    const summary = document.getElementById('summary');
+    summary.innerHTML = `
+      <div>
+        <div class="summary-num pass">${totalPass}</div>
+        <div class="summary-label">Passed</div>
+      </div>
+      <div>
+        <div class="summary-num fail">${totalFail}</div>
+        <div class="summary-label">Failed</div>
+      </div>
+      <div>
+        <div class="summary-num" style="color:var(--accent)">${totalPass + totalFail}</div>
+        <div class="summary-label">Total</div>
+      </div>
+      <div style="margin-left:auto;font-size:1.1rem;font-weight:600;color:${totalFail === 0 ? 'var(--pass)' : 'var(--fail)'}">
+        ${totalFail === 0 ? '✓ All tests passed!' : `⚠ ${totalFail} test${totalFail !== 1 ? 's' : ''} failed`}
+      </div>
+    `;
+  </script>
+
+          <li role="none">
+          <a class="nav-link nav-sub-link" data-filter="all">
+            <span class="nav-icon" aria-hidden="true">📋</span>
+            <span>All Transactions</span>
+          </a>
+        </li>
+</body>
+</html>

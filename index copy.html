@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rocel — Student Finance Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/responsive.css" />
+</head>
+
+<body>
+  <!-- Skip to content -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Mobile Overlay -->
+  <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+  .
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon" aria-hidden="true">◈</span>
+        <span class="logo-text">Rocel</span>
+      </div>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">✕</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul role="list">
+        <li>
+          <a href="index.html" class="nav-link active" data-page="home" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">⌂</span>
+            <span>Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#dashboard" class="nav-link" data-page="dashboard">
+            <span class="nav-icon" aria-hidden="true">◎</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#about" class="nav-link" data-page="about">
+            <span class="nav-icon" aria-hidden="true">◉</span>
+            <span>About</span>
+          </a>
+        </li>
+        <li>
+          <a href="#settings" class="nav-link" data-page="settings">
+            <span class="nav-icon" aria-hidden="true">⚙</span>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="balance-pill" id="sidebarBalance" aria-label="Current balance">
+        <span class="pill-label">Balance</span>
+        <span class="pill-value" id="sidebarBalanceValue">$0.00</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Top Bar (mobile) -->
+  <header class="topbar" role="banner">
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"
+      aria-controls="sidebar">
+      <span class="ham-line"></span>
+      <span class="ham-line"></span>
+      <span class="ham-line"></span>
+    </button>
+    <div class="topbar-logo">
+      <span aria-hidden="true">◈</span> Rocel
+    </div>
+    <div class="topbar-balance" aria-live="polite">
+      <span id="topbarBalance">$0.00</span>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content" class="main-content" role="main">
+
+    <!-- HOME PAGE -->
+    <section id="home" class="page active" aria-label="Home page">
+      <div class="hero">
+        <div class="hero-text">
+          <p class="hero-eyebrow">Student Finance Tracker</p>
+          <h1 class="hero-title">Money made <em>simple</em></h1>
+          <p class="hero-subtitle">Track every dollar. Plan every week. Own your financial future — built for students,
+            by design.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-nav="dashboard">Open Dashboard</button>
+            <button class="btn btn-ghost" data-nav="about">Learn More</button>
+            <!-- <a href="" class="btn btn-primary" data-nav="dashboard">Open Dashboard</a>
+            <a href="" class="btn btn-ghost" data-nav="about">Learn More</a> -->
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <!-- <div class="float-card card-1">
+            <span class="float-label">This Month</span>
+            <span class="float-amount income" id="heroMonthIncome">+$0.00</span>
+          </div>
+          <div class="float-card card-2">
+            <span class="float-label">Spent</span>
+            <span class="float-amount expense" id="heroMonthExpense">−$0.00</span>
+          </div>
+          <div class="float-card card-3">
+            <span class="float-label">Savings</span>
+            <span class="float-amount" id="heroBalance">$0.00</span>
+          </div>
+          <div class="hero-chart-ring" role="img" aria-label="Balance visualization">
+            <div class="ring-inner">
+              <span>◈</span>
+            </div>
+          </div> -->
+          <img src="./assets/images/accountant.jpg" alt="" style="width: 100%; border-radius: 20px;">
+        </div>
+      </div>
+
+      <!-- Quick Stats Strip -->
+      <div class="stats-strip" role="region" aria-label="Quick statistics">
+        <div class="stat-chip">
+          <span class="chip-num" id="stripTopCat">—</span>
+          <span class="chip-lbl">Top Category</span>
+        </div>
+        <div class="stat-chip">
+          <span class="chip-num" id="stripWeekSpend">$0.00</span>
+          <span class="chip-lbl">Last 7 Days</span>
+        </div>
+        <div class="stat-chip">
+          <span class="chip-num" id="stripTransCount">0</span>
+          <span class="chip-lbl">No. of Transactions</span>
+        </div>
+        <div class="stat-chip">
+          <span class="chip-num" id="stripAvg">$0.00</span>
+          <span class="chip-lbl">Avg. Transaction</span>
+        </div>
+      </div>
+
+      <!-- Recent Transactions Preview -->
+      <div class="section-block">
+        <div class="section-header">
+          <h2>Recent Transactions</h2>
+          <button class="btn btn-sm btn-ghost" data-nav="dashboard">View all →</button>
+        </div>
+        <div class="recent-list" id="recentList" role="list" aria-label="Recent transactions">
+          <p class="empty-state" id="recentEmpty">No transactions yet. <button class="link-btn" data-nav="dashboard">Add
+              your first one →</button></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD PAGE -->
+    <section id="dashboard" class="page" aria-label="Dashboard">
+      <div class="page-header">
+        <div>
+          <h1>Dashboard</h1>
+          <p class="page-subtitle">Manage your finances</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-sm btn-ghost" id="exportBtn" aria-label="Export data as JSON">
+            <span aria-hidden="true">↑</span> Export
+          </button>
+          <label class="btn btn-sm btn-ghost" for="importInput" style="cursor:pointer">
+            <span aria-hidden="true">↓</span> Import
+          </label>
+          <input type="file" id="importInput" accept=".json" class="sr-only" aria-label="Import JSON file" />
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid" role="region" aria-label="Financial statistics">
+        <div class="stat-card income-card">
+          <div class="stat-icon" aria-hidden="true">↑</div>
+          <div class="stat-info">
+            <span class="stat-label">Total Income</span>
+            <span class="stat-value" id="statIncome">$0.00</span>
+          </div>
+        </div>
+        <div class="stat-card expense-card">
+          <div class="stat-icon" aria-hidden="true">↓</div>
+          <div class="stat-info">
+            <span class="stat-label">Total Expenses</span>
+            <span class="stat-value" id="statExpense">$0.00</span>
+          </div>
+        </div>
+        <div class="stat-card balance-card">
+          <div class="stat-icon" aria-hidden="true">◎</div>
+          <div class="stat-info">
+            <span class="stat-label">Net Balance</span>
+            <span class="stat-value" id="statBalance">$0.00</span>
+          </div>
+        </div>
+        <div class="stat-card budget-card">
+          <div class="stat-icon" aria-hidden="true">◉</div>
+          <div class="stat-info">
+            <span class="stat-label">Financial Health</span>
+            <span class="stat-value" id="statCap">Not set</span>
+          </div>
+          <div class="budget-bar-wrap" id="budgetBarWrap" aria-hidden="true">
+            <div class="budget-bar" id="budgetBar" style="width:0%"></div>
+          </div>
+          <div role="status" id="budgetStatus" aria-live="polite" class="budget-status-msg"></div>
+        </div>
+      </div>
+
+      <!-- Trend Chart -->
+      <div class="chart-section" role="region" aria-label="7-day spending trend">
+        <h2>Last 7 Days</h2>
+        <div class="chart-wrap">
+          <div class="bar-chart" id="barChart" role="img" aria-label="7-day bar chart of expenses"></div>
+          <div class="chart-labels" id="chartLabels" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- Add Transaction Forms -->
+      <div class="forms-row">
+        <!-- Add Income -->
+        <div class="form-card">
+          <h2 class="form-title income-title">
+            <span aria-hidden="true">↑</span> Add Income
+          </h2>
+          <form id="incomeForm" novalidate aria-label="Add income form">
+            <div class="form-group">
+              <label for="incomeDesc">Description *</label>
+              <input type="text" id="incomeDesc" name="description" required placeholder="e.g. Part-time job payment"
+                aria-describedby="incomeDescErr" autocomplete="off" />
+              <span class="field-error" id="incomeDescErr" role="alert" aria-live="assertive"></span>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="incomeAmount">Amount ($) *</label>
+                <input type="text" id="incomeAmount" name="amount" required placeholder="0.00" inputmode="decimal"
+                  aria-describedby="incomeAmtErr" />
+                <span class="field-error" id="incomeAmtErr" role="alert" aria-live="assertive"></span>
+              </div>
+              <div class="form-group">
+                <label for="incomeDate">Date *</label>
+                <input type="date" id="incomeDate" name="date" required aria-describedby="incomeDateErr" />
+                <span class="field-error" id="incomeDateErr" role="alert" aria-live="assertive"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="incomeCategory">Category *</label>
+              <select id="incomeCategory" name="category" aria-describedby="incomeCatErr">
+                <option value="">Select category</option>
+                <option value="Salary">Salary</option>
+                <option value="Scholarship">Scholarship</option>
+                <option value="Freelance">Freelance</option>
+                <option value="Gift">Gift</option>
+                <option value="Other">Other</option>
+              </select>
+              <span class="field-error" id="incomeCatErr" role="alert" aria-live="assertive"></span>
+            </div>
+            <div role="status" id="incomeFormStatus" aria-live="polite" class="form-status"></div>
+            <button type="submit" class="btn btn-income">Add Income</button>
+          </form>
+        </div>
+
+        <!-- Add Expense -->
+        <div class="form-card">
+          <h2 class="form-title expense-title">
+            <span aria-hidden="true">↓</span> Add Expense
+          </h2>
+          <form id="expenseForm" novalidate aria-label="Add expense form">
+            <div class="form-group">
+              <label for="expenseDesc">Description *</label>
+              <input type="text" id="expenseDesc" name="description" required placeholder="e.g. Coffee with friends"
+                aria-describedby="expenseDescErr" autocomplete="off" />
+              <span class="field-error" id="expenseDescErr" role="alert" aria-live="assertive"></span>
+              <span class="duplicate-warn" id="dupWarn" role="alert" aria-live="polite"></span>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="expenseAmount">Amount ($) *</label>
+                <input type="text" id="expenseAmount" name="amount" required placeholder="0.00" inputmode="decimal"
+                  aria-describedby="expenseAmtErr" />
+                <span class="field-error" id="expenseAmtErr" role="alert" aria-live="assertive"></span>
+              </div>
+              <div class="form-group">
+                <label for="expenseDate">Date *</label>
+                <input type="date" id="expenseDate" name="date" required aria-describedby="expenseDateErr" />
+                <span class="field-error" id="expenseDateErr" role="alert" aria-live="assertive"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="expenseCategory">Category *</label>
+              <select id="expenseCategory" name="category" aria-describedby="expenseCatErr">
+                <option value="">Select category</option>
+                <option value="Food">Food</option>
+                <option value="Books">Books</option>
+                <option value="Transport">Transport</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Fees">Fees</option>
+                <option value="Other">Other</option>
+              </select>
+              <span class="field-error" id="expenseCatErr" role="alert" aria-live="assertive"></span>
+            </div>
+            <div role="status" id="expenseFormStatus" aria-live="polite" class="form-status"></div>
+            <button type="submit" class="btn btn-expense">Add Expense</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Transactions Table -->
+      <div class="table-section" role="region" aria-label="Transactions table">
+        <div class="table-header">
+          <h2>All Transactions</h2>
+          <div class="table-controls">
+            <div class="search-wrap">
+              <label for="searchInput" class="sr-only">Search transactions</label>
+              <input type="text" id="searchInput" class="search-input" placeholder="Search or regex…"
+                aria-describedby="searchHint" autocomplete="off" />
+              <button class="search-case-btn" id="caseSensBtn" aria-pressed="false"
+                aria-label="Toggle case sensitive search" title="Case sensitive">Aa</button>
+              <span class="search-indicator" id="searchIndicator" aria-live="polite"></span>
+            </div>
+            <p id="searchHint" class="sr-only">Type a search term or regular expression to filter transactions</p>
+            <div class="filter-row">
+              <select id="filterType" aria-label="Filter by type">
+                <option value="all">All Types</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+              <select id="filterCategory" aria-label="Filter by category">
+                <option value="all">All Categories</option>
+              </select>
+              <select id="sortSelect" aria-label="Sort transactions">
+                <option value="date-desc">Newest First</option>
+                <option value="date-asc">Oldest First</option>
+                <option value="amount-desc">Highest Amount</option>
+                <option value="amount-asc">Lowest Amount</option>
+                <option value="desc-asc">A → Z</option>
+                <option value="desc-desc">Z → A</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap" role="region" aria-label="Scrollable transactions table" tabindex="0">
+          <table id="transTable" aria-live="polite">
+            <thead>
+              <tr>
+                <th scope="col">
+                  <button class="sort-btn" data-sort="desc">Description</button>
+                </th>
+                <th scope="col">
+                  <button class="sort-btn" data-sort="amount">Amount</button>
+                </th>
+                <th scope="col">Category</th>
+                <th scope="col">
+                  <button class="sort-btn" data-sort="date">Date</button>
+                </th>
+                <th scope="col">Type</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="transBody">
+              <!-- Rows rendered by JS -->
+            </tbody>
+          </table>
+          <div class="table-empty" id="tableEmpty" hidden>
+            <p>No transactions found.</p>
+          </div>
+        </div>
+        <div class="table-footer">
+          <span id="resultCount" role="status" aria-live="polite">0 transactions</span>
+        </div>
+      </div>
+
+      <!-- Edit Modal -->
+      <div class="modal-backdrop" id="editModal" hidden role="dialog" aria-modal="true"
+        aria-labelledby="editModalTitle">
+        <div class="modal">
+          <div class="modal-header">
+            <h2 id="editModalTitle">Edit Transaction</h2>
+            <button class="modal-close" id="closeEditModal" aria-label="Close edit dialog">✕</button>
+          </div>
+          <form id="editForm" novalidate aria-label="Edit transaction form">
+            <input type="hidden" id="editId" />
+            <div class="form-group">
+              <label for="editDesc">Description *</label>
+              <input type="text" id="editDesc" required aria-describedby="editDescErr" autocomplete="off" />
+              <span class="field-error" id="editDescErr" role="alert" aria-live="assertive"></span>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="editAmount">Amount ($) *</label>
+                <input type="text" id="editAmount" required aria-describedby="editAmtErr" />
+                <span class="field-error" id="editAmtErr" role="alert" aria-live="assertive"></span>
+              </div>
+              <div class="form-group">
+                <label for="editDate">Date *</label>
+                <input type="date" id="editDate" required aria-describedby="editDateErr" />
+                <span class="field-error" id="editDateErr" role="alert" aria-live="assertive"></span>
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="editCategory">Category *</label>
+                <select id="editCategory">
+                  <option value="Food">Food</option>
+                  <option value="Books">Books</option>
+                  <option value="Transport">Transport</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Fees">Fees</option>
+                  <option value="Salary">Salary</option>
+                  <option value="Scholarship">Scholarship</option>
+                  <option value="Freelance">Freelance</option>
+                  <option value="Gift">Gift</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="editType">Type *</label>
+                <select id="editType">
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+              </div>
+            </div>
+            <div role="status" id="editFormStatus" aria-live="polite" class="form-status"></div>
+            <div class="modal-actions">
+              <button type="button" class="btn btn-ghost" id="cancelEdit">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Delete Confirm Modal -->
+      <div class="modal-backdrop" id="deleteModal" hidden role="dialog" aria-modal="true"
+        aria-labelledby="deleteModalTitle">
+        <div class="modal modal-sm">
+          <div class="modal-header">
+            <h2 id="deleteModalTitle">Delete Transaction</h2>
+            <button class="modal-close" id="closeDeleteModal" aria-label="Close delete dialog">✕</button>
+          </div>
+          <p class="modal-body-text">Are you sure you want to delete <strong id="deleteTargetName"></strong>? This
+            cannot be undone.</p>
+          <div class="modal-actions">
+            <button class="btn btn-ghost" id="cancelDelete">Cancel</button>
+            <button class="btn btn-danger" id="confirmDelete">Delete</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT PAGE -->
+    <section id="about" class="page" aria-label="About Rocel">
+      <div class="about-wrap">
+        <div class="about-hero">
+          <div class="about-logo" aria-hidden="true">◈</div>
+          <h1>About Rocel</h1>
+          <p class="about-tagline">A student-built finance tracker for real student life.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card">
+            <div class="about-card-icon" aria-hidden="true">◎</div>
+            <h2>Purpose</h2>
+            <p>Rocel helps students take control of their money — track income from jobs and scholarships, log daily
+              expenses, visualize trends, and export their data for further analysis. Built with accessibility and
+              mobile-first design in mind.</p>
+          </div>
+
+          <div class="about-card">
+            <div class="about-card-icon" aria-hidden="true">◉</div>
+            <h2>Features</h2>
+            <ul class="about-list">
+              <li>Add income & expense transactions</li>
+              <li>Regex-powered live search with highlights</li>
+              <li>Sort by date, amount, or description</li>
+              <li>Budget cap with ARIA live alerts</li>
+              <li>7-day spending trend chart</li>
+              <li>JSON import/export with validation</li>
+              <li>Full keyboard navigation support</li>
+              <li>localStorage persistence</li>
+              <li>Multi-currency display (Settings)</li>
+            </ul>
+          </div>
+
+          <div class="about-card">
+            <div class="about-card-icon" aria-hidden="true">⚙</div>
+            <h2>Tech Stack</h2>
+            <ul class="about-list">
+              <li>Vanilla HTML5, CSS3, JavaScript (ES Modules)</li>
+              <li>No frameworks or external libraries</li>
+              <li>Mobile-first responsive design</li>
+              <li>WCAG 2.1 AA accessibility target</li>
+              <li>localStorage for data persistence</li>
+            </ul>
+          </div>
+
+          <div class="about-card about-contact-card">
+            <div class="about-card-icon" aria-hidden="true">✉</div>
+            <h2>Contact</h2>
+            <div class="contact-links">
+              <a href="https://github.com" class="contact-link" aria-label="GitHub profile (opens in new tab)"
+                target="_blank" rel="noopener noreferrer">
+                <span class="contact-icon" aria-hidden="true">⌥</span>
+                <span>GitHub Profile</span>
+              </a>
+              <a href="mailto:student@university.edu" class="contact-link" aria-label="Send email">
+                <span class="contact-icon" aria-hidden="true">✉</span>
+                <span>student@university.edu</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="regex-catalog" role="region" aria-label="Regex validation catalog">
+          <h2>Regex Catalog</h2>
+          <div class="regex-table-wrap">
+            <table class="regex-table">
+              <thead>
+                <tr>
+                  <th scope="col">Rule</th>
+                  <th scope="col">Pattern</th>
+                  <th scope="col">Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Description (no leading/trailing spaces)</td>
+                  <td><code>/^\S(?:.*\S)?$/</code></td>
+                  <td>"Coffee with friends" ✓</td>
+                </tr>
+                <tr>
+                  <td>Amount (currency)</td>
+                  <td><code>/^(0|[1-9]\d*)(\.\d{1,2})?$/</code></td>
+                  <td>"12.50" ✓, "0.5" ✓</td>
+                </tr>
+                <tr>
+                  <td>Date (YYYY-MM-DD)</td>
+                  <td><code>/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/</code></td>
+                  <td>"2025-09-29" ✓</td>
+                </tr>
+                <tr>
+                  <td>Category (letters/spaces/hyphens)</td>
+                  <td><code>/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/</code></td>
+                  <td>"Part-time" ✓</td>
+                </tr>
+                <tr>
+                  <td>Duplicate word (advanced — back-reference)</td>
+                  <td><code>/\b(\w+)\s+\1\b/i</code></td>
+                  <td>"the the" detected ✓</td>
+                </tr>
+                <tr>
+                  <td>Cents present (search)</td>
+                  <td><code>/\.\d{2}\b/</code></td>
+                  <td>Finds "12.50", "8.75"</td>
+                </tr>
+                <tr>
+                  <td>Beverage keyword (search)</td>
+                  <td><code>/(coffee|tea)/i</code></td>
+                  <td>Finds "Coffee with friends"</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS PAGE -->
+    <section id="settings" class="page" aria-label="Settings">
+      <div class="settings-wrap">
+        <div class="page-header">
+          <div>
+            <h1>Settings</h1>
+            <p class="page-subtitle">Customize your experience</p>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          <!-- Budget Settings -->
+          <div class="settings-card">
+            <h2>Monthly Budget</h2>
+            <p class="settings-desc">Set a monthly expenses budget. You'll be alerted when you approach or exceed it.
+            </p>
+            <form id="budgetForm" novalidate aria-label="Budget settings form">
+              <div class="form-group">
+                <label for="budgetCap">Monthly Budget ($)</label>
+                <input type="text" id="budgetCap" placeholder="e.g. 500.00"
+                  aria-describedby="budgetCapDesc budgetCapErr" />
+                <span class="field-hint" id="budgetCapDesc">Leave blank to disable budget alerts.</span>
+                <span class="field-error" id="budgetCapErr" role="alert" aria-live="assertive"></span>
+              </div>
+              <div role="status" id="budgetSavedMsg" aria-live="polite" class="form-status success"></div>
+              <button type="submit" class="btn btn-primary">Set Budget</button>
+              <button type="button" class="btn btn-ghost" id="clearCapBtn">Clear Budget</button>
+            </form>
+          </div>
+
+          <!-- Currency Settings -->
+          <div class="settings-card">
+            <h2>Currency Display</h2>
+            <p class="settings-desc">Set your base currency and view amounts in two additional currencies.</p>
+            <form id="currencyForm" novalidate aria-label="Currency settings form">
+              <div class="form-group">
+                <label for="baseCurrency">Base Currency</label>
+                <select id="baseCurrency">
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="NGN">NGN</option>
+                  <option value="RWF">RWF</option>
+                </select>
+              </div>
+              <!-- <div class="form-row-2"> -->
+                <!-- <div class="form-group">
+                  <label for="altCurrency1">Alt. Currency 1</label>
+                  <select id="baseCurrency">
+                    <option value="USD">USD ($) — Dollar</option>
+                    <option value="EUR">EUR (€) — Euro</option>
+                    <option value="NGN">NGN (₦) — Naira</option>
+                    <option value="RWF">RWF (RWF) — Rwanda Francs</option>
+                  </select>
+                </div> -->
+                <div class="form-group">
+                  <label for="altCurrency2">Alt. Currency </label>
+                  <select id="baseCurrency">
+                    <option value="USD">USD </option>
+                    <option value="EUR">EUR </option>
+                    <option value="NGN">NGN </option>
+                    <option value="RWF">RWF </option>
+                  </select>
+                </div>
+              <!-- </div> -->
+              <div class="form-group">
+                <label for="rate1">1 USD → Alt</label>
+                <input type="text" id="rate1" placeholder="e.g. 0.0000" aria-describedby="rate1Err" />
+                <span class="field-error" id="rate1Err" role="alert" aria-live="assertive"></span>
+              </div>
+              <!-- <div class="form-group">
+                <label for="rate2">Rate: 1 USD → Alt 2</label>
+                <input type="text" id="rate2" placeholder="e.g. 0.79" aria-describedby="rate2Err" />
+                <span class="field-error" id="rate2Err" role="alert" aria-live="assertive"></span>
+              </div> -->
+              <div role="status" id="currencySavedMsg" aria-live="polite" class="form-status success"></div>
+              <button type="submit" class="btn btn-primary">Save Currency Settings</button>
+            </form>
+
+            <!-- Currency Converter -->
+            <div class="converter-section">
+              <h3>Quick Converter</h3>
+              <div class="converter-row">
+                <input type="text" id="convertInput" placeholder="Amount in base" aria-label="Amount to convert" />
+                <div class="convert-results" id="convertResults" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Management -->
+          <div class="settings-card full-width">
+            <h2>Data Management</h2>
+            <p class="settings-desc">Export your data as JSON for backup, or import a previously exported file. All
+              imports are validated before saving.</p>
+            <div class="data-actions">
+              <button class="btn btn-primary" id="exportBtnSettings">
+                <span aria-hidden="true">↑</span> Export JSON
+              </button>
+              <label class="btn btn-ghost" for="importInputSettings" style="cursor:pointer">
+                <span aria-hidden="true">↓</span> Import JSON
+              </label>
+              <input type="file" id="importInputSettings" accept=".json" class="sr-only"
+                aria-label="Import JSON file from settings" />
+              <button class="btn btn-danger" id="clearAllBtn">
+                <span aria-hidden="true">✕</span> Clear All Data
+              </button>
+            </div>
+            <div role="status" id="dataActionStatus" aria-live="polite" class="form-status"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer" role="contentinfo">
+    <p>Rocel © 2026. Built by <a href="http://"></a></p>
+  </footer>
+
+  <!-- Global toast notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="scripts/app.js"></script>
+</body>
+
+</html>

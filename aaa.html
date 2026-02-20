@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinanceTracker — Student Finance Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/responsive.css" />
+  <link rel="stylesheet" href="styles/landing.css" />
+</head>
+<body>
+  <!-- Skip to content -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Mobile Overlay -->
+  <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+    <div class="sidebar-header">
+      <div class="logo">
+        <!-- <span class="logo-icon" aria-hidden="true">◈</span> -->
+        <span class="logo-text">FinanceTracker</span>
+      </div>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">✕</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul role="list">
+        <!-- <li>
+          <a href="index.html" class="nav-link active" data-page="home" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">⌂</span>
+            <span>Home</span>
+          </a>
+        </li> -->
+        <li>
+          <a href="dashboard.html" class="nav-link" data-page="dashboard">
+            <span class="nav-icon" aria-hidden="true">◎</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#about" class="nav-link" data-page="about">
+            <span class="nav-icon" aria-hidden="true">◉</span>
+            <span>About</span>
+          </a>
+        </li>
+        <li>
+          <a href="#settings" class="nav-link" data-page="settings">
+            <span class="nav-icon" aria-hidden="true">⚙</span>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="balance-pill" id="sidebarBalance" aria-label="Current balance">
+        <span class="pill-label">Balance</span>
+        <span class="pill-value" id="sidebarBalanceValue">$0.00</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Top Bar (mobile) -->
+  <header class="topbar" role="banner">
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+      <span class="ham-line"></span>
+      <span class="ham-line"></span>
+      <span class="ham-line"></span>
+    </button>
+    <div class="topbar-logo">
+      <span aria-hidden="true">◈</span> FinanceTracker
+    </div>
+    <div class="topbar-balance" aria-live="polite">
+      <span id="topbarBalance">$0.00</span>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content" class="main-content" role="main">
+
+    <!-- HOME LANDING PAGE -->
+    <section id="home" class="page active lp-page" aria-label="Home landing page">
+
+      <!-- ═══ HERO ═══ -->
+      <div class="lp-hero">
+        <div class="lp-hero-bg" aria-hidden="true">
+          <div class="lp-hero-grain"></div>
+          <div class="lp-hero-glow lp-glow-1"></div>
+          <div class="lp-hero-glow lp-glow-2"></div>
+          <div class="lp-grid-lines"></div>
+        </div>
+
+        <div class="lp-hero-inner">
+          <div class="lp-hero-text">
+            <div class="lp-eyebrow">
+              <span class="lp-eyebrow-dot" aria-hidden="true"></span>
+              Student Finance Tracker
+            </div>
+            <h1 class="lp-title">
+              Your money,<br>
+              <em class="lp-title-em">finally</em> under control.
+            </h1>
+            <p class="lp-subtitle">
+              FinanceTracker gives students a clean, powerful way to track every dollar — income, expenses, trends, and budgets — all in one place. No spreadsheets. No confusion.
+            </p>
+            <div class="lp-cta-row">
+              <button class="lp-btn-primary" data-nav="dashboard">
+                <span>Start Tracking</span>
+                <span class="lp-btn-arrow" aria-hidden="true">→</span>
+              </button>
+              <button class="lp-btn-ghost" data-nav="about">
+                Learn more
+              </button>
+            </div>
+            <div class="lp-trust-row" aria-label="Trust indicators">
+              <span class="lp-trust-item">
+                <span class="lp-trust-icon" aria-hidden="true">✓</span> Free forever
+              </span>
+              <span class="lp-trust-item">
+                <span class="lp-trust-icon" aria-hidden="true">✓</span> No sign-up
+              </span>
+              <span class="lp-trust-item">
+                <span class="lp-trust-icon" aria-hidden="true">✓</span> Data stays on your device
+              </span>
+            </div>
+          </div>
+
+          <div class="lp-hero-visual" aria-hidden="true">
+            <!-- Dashboard mockup -->
+            <div class="lp-mockup">
+              <div class="lp-mockup-bar">
+                <span class="lp-dot r"></span><span class="lp-dot y"></span><span class="lp-dot g"></span>
+                <span class="lp-mockup-url">FinanceTracker · dashboard</span>
+              </div>
+              <div class="lp-mockup-body">
+                <div class="lp-mock-stats">
+                  <div class="lp-mock-stat inc">
+                    <span class="lp-mock-label">Income</span>
+                    <span class="lp-mock-val" id="heroMonthIncome">+$0.00</span>
+                  </div>
+                  <div class="lp-mock-stat exp">
+                    <span class="lp-mock-label">Spent</span>
+                    <span class="lp-mock-val" id="heroMonthExpense">−$0.00</span>
+                  </div>
+                  <div class="lp-mock-stat bal">
+                    <span class="lp-mock-label">Balance</span>
+                    <span class="lp-mock-val" id="heroBalance">$0.00</span>
+                  </div>
+                </div>
+                <div class="lp-mock-chart">
+                  <div class="lp-mock-bar" style="height:40%"></div>
+                  <div class="lp-mock-bar" style="height:65%"></div>
+                  <div class="lp-mock-bar hi" style="height:85%"></div>
+                  <div class="lp-mock-bar" style="height:50%"></div>
+                  <div class="lp-mock-bar" style="height:70%"></div>
+                  <div class="lp-mock-bar" style="height:45%"></div>
+                  <div class="lp-mock-bar hi" style="height:90%"></div>
+                </div>
+                <div class="lp-mock-rows">
+                  <div class="lp-mock-row">
+                    <div class="lp-mock-row-dot" style="background:var(--income)"></div>
+                    <span class="lp-mock-row-txt">Part-time job</span>
+                    <span class="lp-mock-row-amt inc">+$320</span>
+                  </div>
+                  <div class="lp-mock-row">
+                    <div class="lp-mock-row-dot" style="background:#f5a623"></div>
+                    <span class="lp-mock-row-txt">Lunch at cafeteria</span>
+                    <span class="lp-mock-row-amt exp">−$12.50</span>
+                  </div>
+                  <div class="lp-mock-row">
+                    <div class="lp-mock-row-dot" style="background:#4a90e2"></div>
+                    <span class="lp-mock-row-txt">Chemistry textbook</span>
+                    <span class="lp-mock-row-amt exp">−$89.99</span>
+                  </div>
+                  <div class="lp-mock-row">
+                    <div class="lp-mock-row-dot" style="background:#e8c87a"></div>
+                    <span class="lp-mock-row-txt">STEM scholarship</span>
+                    <span class="lp-mock-row-amt inc">+$1,500</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Floating badges -->
+            <div class="lp-badge lp-badge-1">
+              <span class="lp-badge-icon">◎</span>
+              <div>
+                <div class="lp-badge-title">Budget Safe</div>
+                <div class="lp-badge-sub">$120 remaining</div>
+              </div>
+            </div>
+            <div class="lp-badge lp-badge-2">
+              <span class="lp-badge-icon" style="color:var(--income)">↑</span>
+              <div>
+                <div class="lp-badge-title">+$1,970</div>
+                <div class="lp-badge-sub">This month</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lp-scroll-hint" aria-hidden="true">
+          <span class="lp-scroll-line"></span>
+          <span class="lp-scroll-label">Scroll</span>
+        </div>
+      </div>
+
+      <!-- ═══ LOGOS / CONTEXT STRIP ═══ -->
+      <div class="lp-context-strip" role="region" aria-label="Who it's for">
+        <p class="lp-context-label">Built for students at</p>
+        <div class="lp-context-tags">
+          <span class="lp-tag">🎓 University</span>
+          <span class="lp-tag">📚 College</span>
+          <span class="lp-tag">🏠 Living away from home</span>
+          <span class="lp-tag">💼 Part-time workers</span>
+          <span class="lp-tag">🎓 Scholarship recipients</span>
+          <span class="lp-tag">☕ Campus life</span>
+        </div>
+      </div>
+
+      <!-- ═══ FEATURES ═══ -->
+      <div class="lp-features" role="region" aria-label="Features">
+        <div class="lp-section-head">
+          <p class="lp-section-eyebrow">Everything you need</p>
+          <h2 class="lp-section-title">Built for <em>real</em> student life</h2>
+          <p class="lp-section-sub">Every feature exists because students actually need it.</p>
+        </div>
+
+        <div class="lp-features-grid">
+          <!-- Feature 1 -->
+          <div class="lp-feat-card lp-feat-wide">
+            <div class="lp-feat-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80&auto=format&fit=crop"
+                alt="Person reviewing finances on a laptop at a desk"
+                class="lp-feat-img"
+                loading="lazy"
+              />
+              <div class="lp-feat-img-overlay" aria-hidden="true"></div>
+            </div>
+            <div class="lp-feat-content">
+              <div class="lp-feat-tag">Track</div>
+              <h3 class="lp-feat-title">Income & expenses in one view</h3>
+              <p class="lp-feat-desc">Log your part-time job paychecks, scholarship deposits, and every coffee run. See your full financial picture at a glance.</p>
+              <button class="lp-feat-link" data-nav="dashboard">Go to Dashboard →</button>
+            </div>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="lp-feat-card">
+            <div class="lp-feat-img-wrap lp-feat-img-short">
+              <img
+                src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=700&q=80&auto=format&fit=crop"
+                alt="Financial charts and graphs on screen"
+                class="lp-feat-img"
+                loading="lazy"
+              />
+              <div class="lp-feat-img-overlay" aria-hidden="true"></div>
+            </div>
+            <div class="lp-feat-content">
+              <div class="lp-feat-tag">Visualize</div>
+              <h3 class="lp-feat-title">7-day spending trends</h3>
+              <p class="lp-feat-desc">A live chart shows where your money goes day by day — instantly spot the weeks you overspend.</p>
+            </div>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="lp-feat-card">
+            <div class="lp-feat-img-wrap lp-feat-img-short">
+              <img
+                src="https://images.unsplash.com/photo-1607863680198-23d4b2565df0?w=700&q=80&auto=format&fit=crop"
+                alt="Student studying with coffee and notebook"
+                class="lp-feat-img"
+                loading="lazy"
+              />
+              <div class="lp-feat-img-overlay" aria-hidden="true"></div>
+            </div>
+            <div class="lp-feat-content">
+              <div class="lp-feat-tag">Budget</div>
+              <h3 class="lp-feat-title">Monthly caps with smart alerts</h3>
+              <p class="lp-feat-desc">Set a spending cap. Get notified when you're close — or over — so you're never caught off guard at month's end.</p>
+            </div>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="lp-feat-card">
+            <div class="lp-feat-img-wrap lp-feat-img-short">
+              <img
+                src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=700&q=80&auto=format&fit=crop"
+                alt="Data export and import files on computer"
+                class="lp-feat-img"
+                loading="lazy"
+              />
+              <div class="lp-feat-img-overlay" aria-hidden="true"></div>
+            </div>
+            <div class="lp-feat-content">
+              <div class="lp-feat-tag">Portable</div>
+              <h3 class="lp-feat-title">Export & import your data</h3>
+              <p class="lp-feat-desc">Your records are yours. Download as JSON anytime, back up between devices, and import validated files safely.</p>
+            </div>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="lp-feat-card">
+            <div class="lp-feat-img-wrap lp-feat-img-short">
+              <img
+                src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&q=80&auto=format&fit=crop"
+                alt="Mobile phone with app interface"
+                class="lp-feat-img"
+                loading="lazy"
+              />
+              <div class="lp-feat-img-overlay" aria-hidden="true"></div>
+            </div>
+            <div class="lp-feat-content">
+              <div class="lp-feat-tag">Mobile-first</div>
+              <h3 class="lp-feat-title">Works beautifully on any screen</h3>
+              <p class="lp-feat-desc">Designed from the smallest phone up. The full app — every form, chart, and table — works perfectly in your pocket.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ HOW IT WORKS ═══ -->
+      <div class="lp-how" role="region" aria-label="How FlowFunds works">
+        <div class="lp-section-head">
+          <p class="lp-section-eyebrow">Simple by design</p>
+          <h2 class="lp-section-title">Up and running in <em>60 seconds</em></h2>
+        </div>
+        <div class="lp-steps">
+          <div class="lp-step">
+            <div class="lp-step-num" aria-hidden="true">01</div>
+            <div class="lp-step-icon" aria-hidden="true">◈</div>
+            <h3 class="lp-step-title">Open the dashboard</h3>
+            <p class="lp-step-desc">No sign-up, no account. Click Dashboard and you're in. Your data lives in your browser.</p>
+          </div>
+          <div class="lp-step-connector" aria-hidden="true"></div>
+          <div class="lp-step">
+            <div class="lp-step-num" aria-hidden="true">02</div>
+            <div class="lp-step-icon" aria-hidden="true">↑</div>
+            <h3 class="lp-step-title">Add income & expenses</h3>
+            <p class="lp-step-desc">Use the forms to log what comes in and what goes out. Validation catches mistakes in real time.</p>
+          </div>
+          <div class="lp-step-connector" aria-hidden="true"></div>
+          <div class="lp-step">
+            <div class="lp-step-num" aria-hidden="true">03</div>
+            <div class="lp-step-icon" aria-hidden="true">◎</div>
+            <h3 class="lp-step-title">Watch the numbers move</h3>
+            <p class="lp-step-desc">Stats, charts, and your balance update instantly. Search, sort, and filter your history anytime.</p>
+          </div>
+          <div class="lp-step-connector" aria-hidden="true"></div>
+          <div class="lp-step">
+            <div class="lp-step-num" aria-hidden="true">04</div>
+            <div class="lp-step-icon" aria-hidden="true">⚙</div>
+            <h3 class="lp-step-title">Set a budget & currencies</h3>
+            <p class="lp-step-desc">Configure your monthly spending cap and view amounts in multiple currencies from Settings.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ IMAGE SPLIT SECTION ═══ -->
+      <div class="lp-split" role="region" aria-label="Student life context">
+        <div class="lp-split-img-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&q=80&auto=format&fit=crop"
+            alt="Two students collaborating with laptop and notebooks in a bright study space"
+            class="lp-split-img"
+            loading="lazy"
+          />
+          <div class="lp-split-img-frame" aria-hidden="true"></div>
+        </div>
+        <div class="lp-split-content">
+          <p class="lp-section-eyebrow">Your financial health</p>
+          <h2 class="lp-split-title">Small habits now, <em>big freedom</em> later.</h2>
+          <p class="lp-split-body">Most students don't fail financially because they're careless — they fail because they don't have visibility. FinanceTracker gives you that clarity without making it a second job.</p>
+          <ul class="lp-split-list" role="list">
+            <li>Know your balance <strong>before</strong> you spend</li>
+            <li>Catch subscriptions you forgot about</li>
+            <li>See which categories drain your budget fastest</li>
+            <li>Export your data for year-end tax prep</li>
+          </ul>
+          <button class="lp-btn-primary" data-nav="dashboard">
+            <span>Open my dashboard</span>
+            <span class="lp-btn-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══ TESTIMONIALS ═══ -->
+      <div class="lp-testimonials" role="region" aria-label="Student testimonials">
+        <div class="lp-section-head">
+          <p class="lp-section-eyebrow">Students love it</p>
+          <h2 class="lp-section-title">Real talk from <em>real students</em></h2>
+        </div>
+        <div class="lp-testi-grid">
+          <figure class="lp-testi-card lp-testi-featured">
+            <div class="lp-testi-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&q=80&auto=format&fit=crop&face"
+                alt="Portrait of Maya, Computer Science student"
+                class="lp-testi-avatar"
+                loading="lazy"
+              />
+            </div>
+            <blockquote>
+              <p>"I used to overdraft every November. Since FinanceTracker I've been under budget for five months straight. The budget cap alert is the feature I didn't know I needed."</p>
+            </blockquote>
+            <figcaption>
+              <strong>Maya R.</strong>
+              <span>Computer Science, Year 3</span>
+            </figcaption>
+          </figure>
+
+          <figure class="lp-testi-card">
+            <div class="lp-testi-stars" aria-label="5 stars">★★★★★</div>
+            <blockquote>
+              <p>"The regex search is wild — I typed <code>(coffee|tea)</code> and found every café trip in seconds. That's when I realised how often I was buying drinks."</p>
+            </blockquote>
+            <figcaption>
+              <strong>James O.</strong>
+              <span>Engineering, Year 2</span>
+            </figcaption>
+          </figure>
+
+          <figure class="lp-testi-card">
+            <div class="lp-testi-stars" aria-label="5 stars">★★★★★</div>
+            <blockquote>
+              <p>"Love that my data never leaves my browser. I exported my whole year as JSON and gave it to my accountant. Saved me hours of digging through statements."</p>
+            </blockquote>
+            <figcaption>
+              <strong>Priya S.</strong>
+              <span>Business, Year 4</span>
+            </figcaption>
+          </figure>
+
+          <figure class="lp-testi-card">
+            <div class="lp-testi-stars" aria-label="5 stars">★★★★★</div>
+            <blockquote>
+              <p>"Works perfectly on my phone, and the keyboard navigation means I can tab through everything with my laptop. Accessibility-first, properly done."</p>
+            </blockquote>
+            <figcaption>
+              <strong>Luca M.</strong>
+              <span>Design, Year 1</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- ═══ STATS BANNER ═══ -->
+      <div class="lp-stats-banner" role="region" aria-label="App statistics">
+        <div class="lp-stat-big">
+          <span class="lp-stat-big-num">100%</span>
+          <span class="lp-stat-big-lbl">Private — data stays on your device</span>
+        </div>
+        <div class="lp-stat-divider" aria-hidden="true"></div>
+        <div class="lp-stat-big">
+          <span class="lp-stat-big-num">0</span>
+          <span class="lp-stat-big-lbl">Sign-ups required</span>
+        </div>
+        <div class="lp-stat-divider" aria-hidden="true"></div>
+        <div class="lp-stat-big">
+          <span class="lp-stat-big-num">7+</span>
+          <span class="lp-stat-big-lbl">Regex validation rules</span>
+        </div>
+        <div class="lp-stat-divider" aria-hidden="true"></div>
+        <div class="lp-stat-big">
+          <span class="lp-stat-big-num">∞</span>
+          <span class="lp-stat-big-lbl">Transactions you can track</span>
+        </div>
+      </div>
+
+      <!-- ═══ FINAL CTA ═══ -->
+      <div class="lp-final-cta" role="region" aria-label="Call to action">
+        <div class="lp-cta-bg" aria-hidden="true">
+          <div class="lp-cta-glow"></div>
+        </div>
+        <div class="lp-cta-inner">
+          <img
+            src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=75&auto=format&fit=crop"
+            alt="Student working focused at a clean desk with a laptop"
+            class="lp-cta-bg-img"
+            loading="lazy"
+            aria-hidden="true"
+          />
+          <div class="lp-cta-content">
+            <h2 class="lp-cta-title">Ready to own your finances?</h2>
+            <p class="lp-cta-sub">It takes 60 seconds to get started. No account. No credit card. Just you and your numbers.</p>
+            <div class="lp-cta-btns">
+              <button class="lp-btn-primary lp-btn-lg" data-nav="dashboard">
+                <span>Open Dashboard</span>
+                <span class="lp-btn-arrow" aria-hidden="true">→</span>
+              </button>
+              <button class="lp-btn-ghost lp-btn-ghost-light" data-nav="about">
+                About the project
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- DASHBOARD PAGE -->
+    <section id="dashboard" class="page" aria-label="Dashboard">
+      <div class="page-header">
+        <div>
+          <h1>Dashboard</h1>
+          <p class="page-subtitle">Manage your finances</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-sm btn-ghost" id="exportBtn" aria-label="Export data as JSON">
+            <span aria-hidden="true">↑</span> Export
+          </button>
+          <label class="btn btn-sm btn-ghost" for="importInput" style="cursor:pointer">
+            <span aria-hidden="true">↓</span> Import
+          </label>
+          <input type="file" id="importInput" accept=".json" class="sr-only" aria-label="Import JSON file" />
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid" role="region" aria-label="Financial statistics">
+        <div class="stat-card income-card">
+          <div class="stat-icon" aria-hidden="true">↑</div>
+          <div class="stat-info">
+            <span class="stat-label">Total Income</span>
+            <span class="stat-value" id="statIncome">$0.00</span>
+          </div>
+        </div>
+        <div class="stat-card expense-card">
+          <div class="stat-icon" aria-hidden="true">↓</div>
+          <div class="stat-info">
+            <span class="stat-label">Total Expenses</span>
+            <span class="stat-value" id="statExpense">$0.00</span>
+          </div>
+        </div>
+        <div class="stat-card balance-card">
+          <div class="stat-icon" aria-hidden="true">◎</div>
+          <div class="stat-info">
+            <span class="stat-label">Net Balance</span>
+            <span class="stat-value" id="statBalance">$0.00</span>
+          </div>
+        </div>
+        <div class="stat-card budget-card">
+          <div class="stat-icon" aria-hidden="true">◉</div>
+          <div class="stat-info">
+            <span class="stat-label">Budget Cap</span>
+            <span class="stat-value" id="statCap">Not set</span>
+          </div>
+          <div class="budget-bar-wrap" id="budgetBarWrap" aria-hidden="true">
+            <div class="budget-bar" id="budgetBar" style="width:0%"></div>
+          </div>
+          <div role="status" id="budgetStatus" aria-live="polite" class="budget-status-msg"></div>
+        </div>
+      </div>
+
+      <!-- Trend Chart -->
+      <div class="chart-section" role="region" aria-label="7-day spending trend">
+        <h2>Last 7 Days</h2>
+        <div class="chart-wrap">
+          <div class="bar-chart" id="barChart" role="img" aria-label="7-day bar chart of expenses"></div>
+          <div class="chart-labels" id="chartLabels" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- Add Transaction Forms -->
+      <div class="forms-row">
+        <!-- Add Income -->
+        <div class="form-card">
+          <h2 class="form-title income-title">
+            <span aria-hidden="true">↑</span> Add Income
+          </h2>
+          <form id="incomeForm" novalidate aria-label="Add income form">
+            <div class="form-group">
+              <label for="incomeDesc">Description *</label>
+              <input type="text" id="incomeDesc" name="description" required
+                     placeholder="e.g. Part-time job payment"
+                     aria-describedby="incomeDescErr" autocomplete="off" />
+              <span class="field-error" id="incomeDescErr" role="alert" aria-live="assertive"></span>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="incomeAmount">Amount ($) *</label>
+                <input type="text" id="incomeAmount" name="amount" required
+                       placeholder="0.00" inputmode="decimal"
+                       aria-describedby="incomeAmtErr" />
+                <span class="field-error" id="incomeAmtErr" role="alert" aria-live="assertive"></span>
+              </div>
+              <div class="form-group">
+                <label for="incomeDate">Date *</label>
+                <input type="date" id="incomeDate" name="date" required
+                       aria-describedby="incomeDateErr" />
+                <span class="field-error" id="incomeDateErr" role="alert" aria-live="assertive"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="incomeCategory">Category *</label>
+              <select id="incomeCategory" name="category" aria-describedby="incomeCatErr">
+                <option value="">Select category</option>
+                <option value="Salary">Salary</option>
+                <option value="Scholarship">Scholarship</option>
+                <option value="Freelance">Freelance</option>
+                <option value="Gift">Gift</option>
+                <option value="Other">Other</option>
+              </select>
+              <span class="field-error" id="incomeCatErr" role="alert" aria-live="assertive"></span>
+            </div>
+            <div role="status" id="incomeFormStatus" aria-live="polite" class="form-status"></div>
+            <button type="submit" class="btn btn-income">Add Income</button>
+          </form>
+        </div>
+
+        <!-- Add Expense -->
+        <div class="form-card">
+          <h2 class="form-title expense-title">
+            <span aria-hidden="true">↓</span> Add Expense
+          </h2>
+          <form id="expenseForm" novalidate aria-label="Add expense form">
+            <div class="form-group">
+              <label for="expenseDesc">Description *</label>
+              <input type="text" id="expenseDesc" name="description" required
+                     placeholder="e.g. Coffee with friends"
+                     aria-describedby="expenseDescErr" autocomplete="off" />
+              <span class="field-error" id="expenseDescErr" role="alert" aria-live="assertive"></span>
+              <span class="duplicate-warn" id="dupWarn" role="alert" aria-live="polite"></span>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="expenseAmount">Amount ($) *</label>
+                <input type="text" id="expenseAmount" name="amount" required
+                       placeholder="0.00" inputmode="decimal"
+                       aria-describedby="expenseAmtErr" />
+                <span class="field-error" id="expenseAmtErr" role="alert" aria-live="assertive"></span>
+              </div>
+              <div class="form-group">
+                <label for="expenseDate">Date *</label>
+                <input type="date" id="expenseDate" name="date" required
+                       aria-describedby="expenseDateErr" />
+                <span class="field-error" id="expenseDateErr" role="alert" aria-live="assertive"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="expenseCategory">Category *</label>
+              <select id="expenseCategory" name="category" aria-describedby="expenseCatErr">
+                <option value="">Select category</option>
+                <option value="Food">Food</option>
+                <option value="Books">Books</option>
+                <option value="Transport">Transport</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Fees">Fees</option>
+                <option value="Other">Other</option>
+              </select>
+              <span class="field-error" id="expenseCatErr" role="alert" aria-live="assertive"></span>
+            </div>
+            <div role="status" id="expenseFormStatus" aria-live="polite" class="form-status"></div>
+            <button type="submit" class="btn btn-expense">Add Expense</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Transactions Table -->
+      <div class="table-section" role="region" aria-label="Transactions table">
+        <div class="table-header">
+          <h2>All Transactions</h2>
+          <div class="table-controls">
+            <div class="search-wrap">
+              <label for="searchInput" class="sr-only">Search transactions</label>
+              <input type="text" id="searchInput" class="search-input"
+                     placeholder="Search or regex…"
+                     aria-describedby="searchHint" autocomplete="off" />
+              <button class="search-case-btn" id="caseSensBtn" aria-pressed="false"
+                      aria-label="Toggle case sensitive search" title="Case sensitive">Aa</button>
+              <span class="search-indicator" id="searchIndicator" aria-live="polite"></span>
+            </div>
+            <p id="searchHint" class="sr-only">Type a search term or regular expression to filter transactions</p>
+            <div class="filter-row">
+              <select id="filterType" aria-label="Filter by type">
+                <option value="all">All Types</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+              <select id="filterCategory" aria-label="Filter by category">
+                <option value="all">All Categories</option>
+              </select>
+              <select id="sortSelect" aria-label="Sort transactions">
+                <option value="date-desc">Newest First</option>
+                <option value="date-asc">Oldest First</option>
+                <option value="amount-desc">Highest Amount</option>
+                <option value="amount-asc">Lowest Amount</option>
+                <option value="desc-asc">A → Z</option>
+                <option value="desc-desc">Z → A</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap" role="region" aria-label="Scrollable transactions table" tabindex="0">
+          <table id="transTable" aria-live="polite">
+            <thead>
+              <tr>
+                <th scope="col">
+                  <button class="sort-btn" data-sort="desc">Description</button>
+                </th>
+                <th scope="col">
+                  <button class="sort-btn" data-sort="amount">Amount</button>
+                </th>
+                <th scope="col">Category</th>
+                <th scope="col">
+                  <button class="sort-btn" data-sort="date">Date</button>
+                </th>
+                <th scope="col">Type</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="transBody">
+              <!-- Rows rendered by JS -->
+            </tbody>
+          </table>
+          <div class="table-empty" id="tableEmpty" hidden>
+            <p>No transactions found.</p>
+          </div>
+        </div>
+        <div class="table-footer">
+          <span id="resultCount" role="status" aria-live="polite">0 transactions</span>
+        </div>
+      </div>
+
+      <!-- Edit Modal -->
+      <div class="modal-backdrop" id="editModal" hidden role="dialog"
+           aria-modal="true" aria-labelledby="editModalTitle">
+        <div class="modal">
+          <div class="modal-header">
+            <h2 id="editModalTitle">Edit Transaction</h2>
+            <button class="modal-close" id="closeEditModal" aria-label="Close edit dialog">✕</button>
+          </div>
+          <form id="editForm" novalidate aria-label="Edit transaction form">
+            <input type="hidden" id="editId" />
+            <div class="form-group">
+              <label for="editDesc">Description *</label>
+              <input type="text" id="editDesc" required
+                     aria-describedby="editDescErr" autocomplete="off" />
+              <span class="field-error" id="editDescErr" role="alert" aria-live="assertive"></span>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="editAmount">Amount ($) *</label>
+                <input type="text" id="editAmount" required
+                       aria-describedby="editAmtErr" />
+                <span class="field-error" id="editAmtErr" role="alert" aria-live="assertive"></span>
+              </div>
+              <div class="form-group">
+                <label for="editDate">Date *</label>
+                <input type="date" id="editDate" required
+                       aria-describedby="editDateErr" />
+                <span class="field-error" id="editDateErr" role="alert" aria-live="assertive"></span>
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="editCategory">Category *</label>
+                <select id="editCategory">
+                  <option value="Food">Food</option>
+                  <option value="Books">Books</option>
+                  <option value="Transport">Transport</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Fees">Fees</option>
+                  <option value="Salary">Salary</option>
+                  <option value="Scholarship">Scholarship</option>
+                  <option value="Freelance">Freelance</option>
+                  <option value="Gift">Gift</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="editType">Type *</label>
+                <select id="editType">
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+              </div>
+            </div>
+            <div role="status" id="editFormStatus" aria-live="polite" class="form-status"></div>
+            <div class="modal-actions">
+              <button type="button" class="btn btn-ghost" id="cancelEdit">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Delete Confirm Modal -->
+      <div class="modal-backdrop" id="deleteModal" hidden role="dialog"
+           aria-modal="true" aria-labelledby="deleteModalTitle">
+        <div class="modal modal-sm">
+          <div class="modal-header">
+            <h2 id="deleteModalTitle">Delete Transaction</h2>
+            <button class="modal-close" id="closeDeleteModal" aria-label="Close delete dialog">✕</button>
+          </div>
+          <p class="modal-body-text">Are you sure you want to delete <strong id="deleteTargetName"></strong>? This cannot be undone.</p>
+          <div class="modal-actions">
+            <button class="btn btn-ghost" id="cancelDelete">Cancel</button>
+            <button class="btn btn-danger" id="confirmDelete">Delete</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT PAGE -->
+    <section id="about" class="page" aria-label="About FlowFunds">
+      <div class="about-wrap">
+        <div class="about-hero">
+          <div class="about-logo" aria-hidden="true">◈</div>
+          <h1>About FinanceTracker</h1>
+          <p class="about-tagline">A student-built finance tracker for real student life.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card">
+            <div class="about-card-icon" aria-hidden="true">◎</div>
+            <h2>Purpose</h2>
+            <p>FinanceTracker helps students take control of their money — track income from jobs and scholarships, log daily expenses, visualize trends, and export their data for further analysis. Built with accessibility and mobile-first design in mind.</p>
+          </div>
+
+          <div class="about-card">
+            <div class="about-card-icon" aria-hidden="true">◉</div>
+            <h2>Features</h2>
+            <ul class="about-list">
+              <li>Add income & expense transactions</li>
+              <li>Regex-powered live search with highlights</li>
+              <li>Sort by date, amount, or description</li>
+              <li>Budget cap with ARIA live alerts</li>
+              <li>7-day spending trend chart</li>
+              <li>JSON import/export with validation</li>
+              <li>Full keyboard navigation support</li>
+              <li>localStorage persistence</li>
+              <li>Multi-currency display (Settings)</li>
+            </ul>
+          </div>
+
+          <div class="about-card">
+            <div class="about-card-icon" aria-hidden="true">⚙</div>
+            <h2>Tech Stack</h2>
+            <ul class="about-list">
+              <li>Vanilla HTML5, CSS3, JavaScript (ES Modules)</li>
+              <li>No frameworks or external libraries</li>
+              <li>Mobile-first responsive design</li>
+              <li>WCAG 2.1 AA accessibility target</li>
+              <li>localStorage for data persistence</li>
+            </ul>
+          </div>
+
+          <div class="about-card about-contact-card">
+            <div class="about-card-icon" aria-hidden="true">✉</div>
+            <h2>Contact</h2>
+            <div class="contact-links">
+              <a href="https://github.com" class="contact-link" aria-label="GitHub profile (opens in new tab)" target="_blank" rel="noopener noreferrer">
+                <span class="contact-icon" aria-hidden="true">⌥</span>
+                <span>GitHub Profile</span>
+              </a>
+              <a href="/cdn-cgi/l/email-protection#f586818091909b81b5809b9c839087869c818cdb909180" class="contact-link" aria-label="Send email">
+                <span class="contact-icon" aria-hidden="true">✉</span>
+                <span><span class="__cf_email__" data-cfemail="cdbeb9b8a9a8a3b98db8a3a4bba8bfbea4b9b4e3a8a9b8">[email&#160;protected]</span></span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="regex-catalog" role="region" aria-label="Regex validation catalog">
+          <h2>Regex Catalog</h2>
+          <div class="regex-table-wrap">
+            <table class="regex-table">
+              <thead>
+                <tr>
+                  <th scope="col">Rule</th>
+                  <th scope="col">Pattern</th>
+                  <th scope="col">Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Description (no leading/trailing spaces)</td>
+                  <td><code>/^\S(?:.*\S)?$/</code></td>
+                  <td>"Coffee with friends" ✓</td>
+                </tr>
+                <tr>
+                  <td>Amount (currency)</td>
+                  <td><code>/^(0|[1-9]\d*)(\.\d{1,2})?$/</code></td>
+                  <td>"12.50" ✓, "0.5" ✓</td>
+                </tr>
+                <tr>
+                  <td>Date (YYYY-MM-DD)</td>
+                  <td><code>/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/</code></td>
+                  <td>"2025-09-29" ✓</td>
+                </tr>
+                <tr>
+                  <td>Category (letters/spaces/hyphens)</td>
+                  <td><code>/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/</code></td>
+                  <td>"Part-time" ✓</td>
+                </tr>
+                <tr>
+                  <td>Duplicate word (advanced — back-reference)</td>
+                  <td><code>/\b(\w+)\s+\1\b/i</code></td>
+                  <td>"the the" detected ✓</td>
+                </tr>
+                <tr>
+                  <td>Cents present (search)</td>
+                  <td><code>/\.\d{2}\b/</code></td>
+                  <td>Finds "12.50", "8.75"</td>
+                </tr>
+                <tr>
+                  <td>Beverage keyword (search)</td>
+                  <td><code>/(coffee|tea)/i</code></td>
+                  <td>Finds "Coffee with friends"</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS PAGE -->
+    <section id="settings" class="page" aria-label="Settings">
+      <div class="settings-wrap">
+        <div class="page-header">
+          <div>
+            <h1>Settings</h1>
+            <p class="page-subtitle">Customize your experience</p>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          <!-- Budget Settings -->
+          <div class="settings-card">
+            <h2>Budget Cap</h2>
+            <p class="settings-desc">Set a monthly spending cap. You'll be alerted when you approach or exceed it.</p>
+            <form id="budgetForm" novalidate aria-label="Budget settings form">
+              <div class="form-group">
+                <label for="budgetCap">Monthly Expense Cap ($)</label>
+                <input type="text" id="budgetCap" placeholder="e.g. 500.00"
+                       aria-describedby="budgetCapDesc budgetCapErr" />
+                <span class="field-hint" id="budgetCapDesc">Leave blank to disable cap alerts.</span>
+                <span class="field-error" id="budgetCapErr" role="alert" aria-live="assertive"></span>
+              </div>
+              <div role="status" id="budgetSavedMsg" aria-live="polite" class="form-status success"></div>
+              <button type="submit" class="btn btn-primary">Save Cap</button>
+              <button type="button" class="btn btn-ghost" id="clearCapBtn">Clear Cap</button>
+            </form>
+          </div>
+
+          <!-- Currency Settings -->
+          <div class="settings-card">
+            <h2>Currency Display</h2>
+            <p class="settings-desc">Set your base currency and view amounts in two additional currencies.</p>
+            <form id="currencyForm" novalidate aria-label="Currency settings form">
+              <div class="form-group">
+                <label for="baseCurrency">Base Currency</label>
+                <select id="baseCurrency">
+                  <option value="USD">USD ($) — US Dollar</option>
+                  <option value="CAD">CAD (CA$) — Canadian Dollar</option>
+                  <option value="GBP">GBP (£) — British Pound</option>
+                  <option value="EUR">EUR (€) — Euro</option>
+                  <option value="AUD">AUD (A$) — Australian Dollar</option>
+                </select>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="altCurrency1">Alt. Currency 1</label>
+                  <select id="altCurrency1">
+                    <option value="EUR">EUR (€)</option>
+                    <option value="GBP">GBP (£)</option>
+                    <option value="CAD">CAD (CA$)</option>
+                    <option value="AUD">AUD (A$)</option>
+                    <option value="JPY">JPY (¥)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="altCurrency2">Alt. Currency 2</label>
+                  <select id="altCurrency2">
+                    <option value="GBP">GBP (£)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="JPY">JPY (¥)</option>
+                    <option value="CAD">CAD (CA$)</option>
+                    <option value="AUD">AUD (A$)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="rate1">Rate: 1 USD → Alt 1</label>
+                <input type="text" id="rate1" placeholder="e.g. 0.92"
+                       aria-describedby="rate1Err" />
+                <span class="field-error" id="rate1Err" role="alert" aria-live="assertive"></span>
+              </div>
+              <div class="form-group">
+                <label for="rate2">Rate: 1 USD → Alt 2</label>
+                <input type="text" id="rate2" placeholder="e.g. 0.79"
+                       aria-describedby="rate2Err" />
+                <span class="field-error" id="rate2Err" role="alert" aria-live="assertive"></span>
+              </div>
+              <div role="status" id="currencySavedMsg" aria-live="polite" class="form-status success"></div>
+              <button type="submit" class="btn btn-primary">Save Currency Settings</button>
+            </form>
+
+            <!-- Currency Converter -->
+            <div class="converter-section">
+              <h3>Quick Converter</h3>
+              <div class="converter-row">
+                <input type="text" id="convertInput" placeholder="Amount in base" aria-label="Amount to convert" />
+                <div class="convert-results" id="convertResults" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Management -->
+          <div class="settings-card full-width">
+            <h2>Data Management</h2>
+            <p class="settings-desc">Export your data as JSON for backup, or import a previously exported file. All imports are validated before saving.</p>
+            <div class="data-actions">
+              <button class="btn btn-primary" id="exportBtnSettings">
+                <span aria-hidden="true">↑</span> Export JSON
+              </button>
+              <label class="btn btn-ghost" for="importInputSettings" style="cursor:pointer">
+                <span aria-hidden="true">↓</span> Import JSON
+              </label>
+              <input type="file" id="importInputSettings" accept=".json" class="sr-only" aria-label="Import JSON file from settings" />
+              <button class="btn btn-danger" id="clearAllBtn">
+                <span aria-hidden="true">✕</span> Clear All Data
+              </button>
+            </div>
+            <div role="status" id="dataActionStatus" aria-live="polite" class="form-status"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <!-- <footer class="app-footer" role="contentinfo">
+    <p>FlowFunds © 2025 — Student Finance Tracker. Built with vanilla HTML/CSS/JS.</p>
+  </footer> -->
+
+  <!-- Global toast notification -->
+  <div class="toast" id="toast" role="sta

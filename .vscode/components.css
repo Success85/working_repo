@@ -1,0 +1,237 @@
+/* =========================================
+   FlowFunds — Components Styles
+   ========================================= */
+
+/* Category Color Dots */
+.cat-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.cat-Food { background: #f5a623; }
+.cat-Books { background: #4a90e2; }
+.cat-Transport { background: #7ed321; }
+.cat-Entertainment { background: #bd10e0; }
+.cat-Fees { background: #f26b6b; }
+.cat-Salary { background: #5ddc9b; }
+.cat-Scholarship { background: #e8c87a; }
+.cat-Freelance { background: #50c8ff; }
+.cat-Gift { background: #ff8adc; }
+.cat-Other { background: #9da3b5; }
+
+/* Loading spinner */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Keyboard shortcut hint */
+.kbd {
+  display: inline-block;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.7rem;
+  font-family: monospace;
+  color: var(--text-3);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-4);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+/* Transition animations for rows */
+@keyframes rowSlideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+tbody tr {
+  animation: rowSlideIn 200ms var(--ease);
+}
+
+/* Chart tooltip */
+.chart-tooltip {
+  position: absolute;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-size: 0.72rem;
+  color: var(--text);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 50;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Mobile card view for transactions */
+.trans-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trans-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.trans-card-desc {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+}
+
+.trans-card-amount {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.trans-card-meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.trans-card-date {
+  font-size: 0.75rem;
+  color: var(--text-3);
+}
+
+.trans-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Pill counts */
+.pill-count {
+  display: inline-block;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-radius: 20px;
+  padding: 1px 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-left: 6px;
+}
+
+/* Input addons */
+.input-addon-wrap {
+  position: relative;
+}
+
+.input-addon-wrap input {
+  padding-left: 36px;
+}
+
+.input-addon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-3);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+/* Confirm delete row highlight */
+tr.confirm-delete-row {
+  background: var(--expense-dim) !important;
+  transition: background 200ms;
+}
+
+/* Progress ring animations */
+@keyframes progressRing {
+  from { stroke-dashoffset: 283; }
+}
+
+/* Grid patterns for hero */
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(232,200,122,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+}
+
+/* Sidebar active tab glow */
+.nav-link.active {
+  box-shadow: inset 0 0 20px var(--accent-dim);
+}
+
+/* Import success/error states */
+.import-success {
+  border-color: var(--income) !important;
+  animation: borderPulse 600ms var(--ease);
+}
+
+.import-error {
+  border-color: var(--expense) !important;
+}
+
+@keyframes borderPulse {
+  0% { box-shadow: 0 0 0 0 rgba(93,220,155,0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(93,220,155,0); }
+  100% { box-shadow: 0 0 0 0 rgba(93,220,155,0); }
+}
+
+/* Subtle texture overlay on surfaces */
+.surface-texture {
+  position: relative;
+}
+
+.surface-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: inherit;
+}
